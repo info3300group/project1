@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <script>
+      // where the formatted data will be stored
+      let visualization_data = {};
+
+      //  load data with aync request
+      d3.csv('movies.csv').then(function (data) {
+        data.forEach(function (data) {
+          movie_name = data['Movie Name'];
+          movie_data = [];
+          // if in data dict, just update the relationship_ages
+          if (movie_name in visualization_data) {
+            movie_data = visualization_data[movie_name];
+          }
+          // if not already in data dict, create the initial dictionary struct
+          else {
+            movie_data = {
+              relationship_ages: [],
+              movie_rating: 0, // TODO: figure out how to get these ratings
+              movie_year: data['Release Year'],
+            };
+          }
+          // add the relationship
+          movie_data['relationship_ages'].push([
+            data['Actor 1 Age'],
+            data['Actor 2 Age'],
+          ]);
+          visualization_data[movie_name] = movie_data;
+        });
+
+        // view console to see data format
+        console.log(visualization_data);
+      });
+    </script>
+  </body>
+</html>
