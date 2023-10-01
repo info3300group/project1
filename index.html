@@ -32,6 +32,8 @@
         });
       });
 
+      // the "ratings.csv" data was generated via OMDB API requests
+      // (see "fill_ratings_csv.py" for reference)
       //  load rating data for each movie with aync request
       d3.csv('ratings.csv').then(function (data) {
         data.forEach(function (data) {
