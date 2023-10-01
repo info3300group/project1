@@ -7,7 +7,7 @@
       // where the formatted data will be stored
       let visualization_data = {};
 
-      //  load data with aync request
+      //  load movie data with aync request
       d3.csv('movies.csv').then(function (data) {
         data.forEach(function (data) {
           movie_name = data['Movie Name'];
@@ -20,7 +20,6 @@
           else {
             movie_data = {
               relationship_ages: [],
-              movie_rating: 0, // TODO: figure out how to get these ratings
               movie_year: data['Release Year'],
             };
           }
@@ -31,8 +30,24 @@
           ]);
           visualization_data[movie_name] = movie_data;
         });
+      });
 
-        // view console to see data format
+      //  load rating data for each movie with aync request
+      d3.csv('ratings.csv').then(function (data) {
+        data.forEach(function (data) {
+          movie_name = data['Movie Title'];
+          movie_rating = data['Imdb Rating'];
+          movie_data = visualization_data[movie_name];
+
+          // remove movie data without any ratings data
+          if (movie_rating == 'None') {
+            delete visualization_data[movie_name];
+          } else {
+            movie_data['movie_rating'] = movie_rating;
+            visualization_data[movie_name] = movie_data;
+          }
+        });
+        // see data format in console
         console.log(visualization_data);
       });
     </script>

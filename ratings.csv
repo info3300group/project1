@@ -1,0 +1,843 @@
+Movie Title,Imdb Rating
+Harold and Maude,7.9
+Venus,7.1
+The Quiet American,7.0
+The Big Lebowski,8.1
+Beginners,7.2
+Poison Ivy,5.4
+Whatever Works,7.1
+Entrapment,6.3
+Husbands and Wives,7.5
+Magnolia,8.0
+Indiana Jones and the Last Crusade,8.2
+Mr. Peabody and the Mermaid,6.4
+First Knight,6.0
+Something's Gotta Give,6.7
+Eternal Sunshine of the Spotless Mind,8.3
+Lost in Translation,7.7
+Shopgirl,6.3
+Wild Target,6.7
+Being There,7.9
+"Fort Apache, The Bronx",6.7
+Hollywood Ending,6.5
+The Mother,6.8
+Daddy Long Legs,6.7
+Lolita,6.8
+Mighty Aphrodite,7.0
+Stone,5.4
+The Private Lives of Pippa Lee,6.3
+Third Person,6.3
+Elegy,6.7
+A View to a Kill,6.3
+Enemy of the State,7.3
+For Your Eyes Only,6.7
+Funny Face,7.0
+Houseboat,6.6
+Kindergarten Cop 2,4.4
+Sabrina,7.6
+A Single Man,7.5
+Arbitrage,6.6
+Bulworth,6.8
+Mank,6.8
+Sense and Sensibility,7.7
+The Departed,8.5
+The Man Who Wasn't There,7.5
+A Perfect Murder,6.6
+Beat the Devil,6.4
+Café Society,6.6
+Crazy Heart,7.2
+Gangster Squad,6.7
+High Noon,8.0
+Last Tango in Paris,6.9
+Love in the Afternoon,7.1
+Magic in the Moonlight,6.5
+Freeheld,6.6
+"Six Days, Seven Nights",5.9
+Tadpole,6.2
+The Oranges,5.8
+The Squid and the Whale,7.3
+You Should Have Left,5.4
+As Good as It Gets,7.7
+Behind the Candelabra,7.0
+Black Mass,6.9
+Die Another Day,6.1
+High Society,6.9
+I Love Trouble,5.3
+Indecent Proposal,6.0
+Manhattan,7.8
+Phantom Thread,7.4
+The Color of Money,7.0
+Amelia,5.8
+Charade,7.9
+Chloe,6.3
+Dark Passage,7.5
+I Married a Witch,7.1
+Key Largo,7.7
+Knock Knock,4.9
+Love Actually,7.6
+Mission: Impossible,7.1
+Rumor Has It...,5.5
+Seabiscuit,7.3
+Spun,6.7
+State of the Union,7.2
+The Big Sleep,7.9
+The Misfits,7.2
+The Tomb of Ligeia,6.4
+To Catch a Thief,7.4
+To Have and Have Not,7.8
+Vertigo,8.3
+World's Greatest Dad,6.9
+15 Minutes,6.1
+American Gangster,7.8
+Beyond the Sea,6.7
+Cleaner,6.1
+Dark Shadows,6.2
+Halloween III: Season of the Witch,5.1
+In a Lonely Place,7.9
+Live and Let Die,6.7
+Moonraker,6.2
+Rio Bravo,8.0
+Surrogates,6.3
+The Horse Whisperer,6.7
+The Wrong Man,7.4
+A Walk in the Woods,6.3
+En kongelig affaere,None
+Flight,7.3
+Hobbs & Shaw,6.5
+Octopussy,6.5
+Seeking a Friend for the End of the World,6.7
+The Details,6.1
+The Duchess,6.9
+The First Wives Club,6.4
+The Man with the Golden Gun,6.7
+The Rum Diary,6.1
+Autumn in New York,5.6
+Dial M for Murder,8.2
+Focus,6.6
+Luci del varietà,None
+The Mummy,5.4
+The Other Woman,6.0
+The Prom,5.9
+The Royal Tenenbaums,7.6
+Up Close & Personal,None
+Blame,5.8
+Bugsy,6.8
+Deja Vu,7.1
+Don Jon,6.5
+Edge of Tomorrow,7.9
+Heat,8.3
+It's Complicated,6.5
+Just Go with It,6.4
+King Arthur,6.3
+Licence to Kill,6.6
+Modern Times,8.5
+My Cousin Vinny,7.6
+My Fair Lady,7.8
+Rear Window,8.5
+Richard III,7.3
+Teacher's Pet,7.1
+The Bubble,4.7
+The Great Dictator,8.4
+The Verdict,7.7
+Tomorrow Never Dies,6.5
+V for Vendetta,8.2
+American Beauty,8.3
+Get Smart,6.5
+Jurassic Park,8.2
+Killer Joe,6.7
+L.A. Story,6.7
+North by Northwest,8.3
+Notes on a Scandal,7.4
+Oppenheimer,8.6
+Patch Adams,6.8
+Pushing Tin,6.0
+Regarding Henry,6.7
+Singin' in the Rain,8.3
+The Fifth Element,7.6
+The Northman,7.0
+The Only Living Boy in New York,6.3
+The Spy Who Loved Me,7.0
+Training Day,7.7
+Virginia,5.4
+Water for Elephants,6.9
+American Pie,7.0
+An American in Paris,7.2
+Baby Doll,7.3
+Baby Driver,7.6
+Birdman,5.1
+Buffalo '66,7.4
+Firewall,5.8
+Gone Girl,8.1
+Mother's Day,5.6
+Män som hatar kvinnor,None
+Skyfall,7.8
+Star of Midnight,6.7
+Street Kings,6.8
+Suburban Girl,5.4
+Suicide Squad,5.9
+The Bridges of Madison County,7.6
+The Lord of the Rings,8.8
+The Mothman Prophecies,6.4
+The Naked Gun,7.6
+Thunderball,6.9
+Transcendence,6.2
+All I See Is You,5.4
+Always Be My Maybe,6.8
+Austin Powers in Goldmember,6.2
+Avengers: Infinity War,8.4
+Big Eyes,7.0
+Color of Night,5.2
+Guess Who's Coming to Dinner,7.8
+Milk,7.5
+Once,7.8
+Pretty Woman,7.1
+Quantum of Solace,6.6
+Raising Helen,6.0
+Random Hearts,5.3
+Replicas,5.4
+Runaway Bride,5.6
+Rushmore,7.6
+Scarface,8.3
+St. Vincent,7.2
+The Killing of a Chinese Bookie,7.3
+The World Is Not Enough,6.4
+Tommy Boy,7.1
+Yes Man,6.8
+Zombieland: Double Tap,6.7
+47 Ronin,6.2
+An Affair to Remember,7.4
+Avengers: Age of Ultron,7.3
+Blade Runner,8.1
+Closer,7.2
+Draft Day,6.8
+Free Guy,7.1
+GoldenEye,7.2
+Green Book,8.2
+Husbands,7.1
+Joker,8.4
+Kindergarten Cop,6.2
+Laggies,6.4
+Mr. Right,6.3
+Oblivion,7.0
+Pitfall,7.1
+Raging Bull,8.1
+Rock of Ages,5.9
+Secretary,6.9
+Sleepy Hollow,7.3
+Spectre,6.8
+Stepmom,6.8
+Sullivan's Travels,7.9
+The Cooler,6.9
+The Girl on the Train,6.5
+The Girl with the Dragon Tattoo,7.8
+The Whole Nine Yards,6.7
+The Wolverine,6.7
+Trees Lounge,7.1
+A Thousand Words,5.8
+American Hustle,7.2
+Carol,7.2
+Casablanca,8.5
+Damage,6.7
+I Now Pronounce You Chuck and Larry,None
+My Life,6.8
+Nights in Rodanthe,6.0
+Now You See Me,7.2
+Remember the Titans,7.8
+Safe Haven,6.6
+Scoop,6.6
+Sister Act,6.5
+The Diary of a Teenage Girl,6.8
+The Family Stone,6.3
+The Living Daylights,6.7
+The Lost City,6.1
+The Other Boleyn Girl,6.7
+The Prestige,8.5
+The Raven,6.4
+The Sand Pebbles,7.5
+The Wolf of Wall Street,8.2
+Troy,7.3
+Unfaithful,6.7
+What Lies Beneath,6.6
+Why Him?,6.2
+Analyze This,6.7
+Angel Heart,7.2
+Casino,8.2
+Concussion,7.1
+Home Again,5.8
+Liberal Arts,6.7
+Music and Lyrics,6.5
+Once Upon a Time in Hollywood,7.6
+Private Parts,6.9
+Serena,5.4
+Sex and the City,5.7
+Silver Linings Playbook,7.7
+The American,6.3
+The Gift,6.7
+The Lover,6.8
+The Reader,7.6
+The Whole Truth,6.2
+Working Girl,6.8
+8 1/2,None
+Ad Astra,6.5
+An Education,7.3
+Basic Instinct,7.0
+Because I Said So,5.6
+Dreamgirls,6.6
+Fifty Shades of Black,3.5
+French Kiss,6.6
+From Russia with Love,7.3
+Irrational Man,6.6
+Keeping Up with the Joneses,5.9
+Mission: Impossible III,6.9
+Star Wars,8.6
+Ted 2,6.3
+The American President,6.8
+The Beach,6.6
+The Crush,5.8
+The Favourite,7.5
+The Legend of Tarzan,6.2
+We Bought a Zoo,7.1
+Widows,6.8
+3000 Miles to Graceland,5.9
+A Star Is Born,7.5
+Aloha,5.4
+Anna Karenina,6.6
+Bohemian Rhapsody,7.9
+Bridge of Spies,7.6
+Elf,7.1
+Emma.,6.7
+Feeling Minnesota,5.4
+How Stella Got Her Groove Back,5.7
+John Q.,7.1
+Joy,6.6
+Layer Cake,7.3
+Nine Lives,5.3
+Palo Alto,6.2
+Red Notice,6.3
+Roman Holiday,8.0
+Schindler's List,9.0
+The Adjustment Bureau,7.0
+The Devil Wears Prada,6.9
+The Heartbreak Kid,5.8
+The Illusionist,7.5
+The Polka King,6.0
+The Sixth Sense,8.2
+When Harry Met Sally...,7.7
+Wonder Boys,7.2
+X-Men: First Class,7.7
+Yogi Bear,4.6
+You Only Live Twice,6.8
+All About the Benjamins,5.8
+Allied,7.1
+Bad Santa,7.1
+Book Club,6.1
+Casino Royale,8.0
+Delivery Man,6.3
+Down and Out in Beverly Hills,6.2
+Gone with the Wind,8.2
+I Think I Love My Wife,5.5
+In the Heights,7.3
+Inferno,6.2
+Jack and Jill,3.3
+Jane Eyre,7.3
+La decima vittima,None
+Last Night,6.5
+Licorice Pizza,7.1
+Lo Sceicco Bianco,None
+Malcolm & Marie,6.6
+Mr. & Mrs. Smith,6.5
+National Treasure,6.9
+Natural Born Killers,7.2
+Stella Dallas,7.4
+Taken,7.8
+Ted,6.9
+The Astronaut's Wife,5.4
+The Greatest Showman,7.5
+The Proposal,6.7
+The Spy Who Dumped Me,6.0
+The Wrestler,7.9
+Tootsie,7.4
+Up in the Air,7.4
+World War Z,7.0
+A Good Year,6.9
+Annie Hall,8.0
+Barfly,7.1
+Black Panther,7.3
+Blow,7.5
+Boogie Nights,7.9
+Emma,6.6
+Henry’s Crime,5.9
+I Could Never Be Your Woman,6.0
+Indiana Jones and the Temple of Doom,7.5
+Larry Crowne,6.1
+Message in a Bottle,6.2
+Monster's Ball,7.1
+Old School,7.0
+Passengers,7.0
+Pride & Prejudice,7.8
+Save the Last Dance,6.2
+Seven Pounds,7.6
+Smart People,6.1
+Solo: A Star Wars Story,6.9
+Stoker,6.7
+Sweet November,6.7
+The Decoy Bride,6.1
+The Devil’s Advocate,7.5
+The Fast and the Furious,6.8
+The Good Girl,6.4
+The Great Gatsby,7.2
+The Invention of Lying,6.3
+The Light Between Oceans,7.2
+The Thomas Crown Affair,6.9
+Trainwreck,6.2
+While You Were Sleeping,6.8
+Wimbledon,6.3
+Win a Date with Tad Hamilton!,5.6
+Year One,4.9
+27 Dresses,6.1
+Ant-Man,7.3
+Barbie,7.2
+Bedtime Stories,6.0
+Big Daddy,6.4
+Braveheart,8.3
+Daddy's Home,6.2
+Death to Smoochy,6.3
+Diamonds Are Forever,6.5
+Django Unchained,8.5
+EDtv,6.1
+Ever After,7.1
+Forrest Gump,8.8
+Ghost,7.1
+Ghost Rider,5.3
+Girl with a Pearl Earring,6.9
+High School High,5.5
+How to Lose a Guy in 10 Days,6.4
+Little Black Book,5.3
+Made of Honor,5.8
+Man of Steel,7.1
+Nightmare Alley,7.0
+Prima della rivoluzione,None
+Pulp Fiction,8.9
+Rebecca,8.1
+Return to Me,6.9
+Smokey and the Bandit,7.0
+Snowden,7.3
+Spanglish,6.4
+Stranger Than Fiction,7.5
+Sweet Home Alabama,6.2
+Thank You for Smoking,7.5
+The Aviator,7.5
+The Best Little Whorehouse in Texas,6.0
+The Cable Guy,6.1
+The Mask,6.9
+The Next Three Days,7.3
+The Normal Heart,7.9
+The Nutty Professor,5.7
+The Time Traveler's Wife,7.1
+Wedding Crashers,7.0
+What's Eating Gilbert Grape,7.7
+42,7.5
+50 First Dates,6.8
+A History of Violence,7.4
+Accepted,6.4
+Amelie,8.3
+Body of Lies,7.0
+Bridget Jones's Baby,6.5
+Bridget Jones's Diary,6.8
+Bull Durham,7.1
+Call Me by Your Name,7.8
+Crank,6.9
+Crazy Rich Asians,6.9
+Don't Mess with the Zohan,5.6
+Everything Everywhere All at Once,7.8
+He's Just Not That Into You,6.4
+Heartbreakers,6.2
+I Love You Phillip Morris,6.6
+Just Like Heaven,6.7
+Love Stinks,5.7
+Mona Lisa Smile,6.5
+My Best Friend's Wedding,6.3
+Pusher,7.3
+RED,7.0
+Raiders of the Lost Ark,8.4
+Seven,6.3
+Talladega Nights: The Ballad of Ricky Bobby,6.6
+The Count of Monte Cristo,7.7
+The Fabulous Baker Boys,6.9
+The Good Shepherd,6.7
+The Happening,5.0
+The Mask of Zorro,6.8
+The Wedding Singer,6.9
+Walk Hard,6.8
+Wild Things,6.6
+X-Men,7.3
+X-Men Origins: Wolverine,6.5
+Y tu mamá también,6.7
+A Happening of Monumental Proportions,4.9
+A Very Long Engagement,7.6
+Alex & Emma,5.5
+Batman Forever,5.4
+Blue Is The Warmest Color,None
+"Crazy, Stupid, Love",7.4
+Crimson Peak,6.5
+Dan in Real Life,6.8
+Deepwater Horizon,7.1
+Dirty Dancing,7.0
+Edward Scissorhands,7.9
+Enchanted,7.1
+Fantastic Beasts and Where to Find Them,7.2
+From Here to Eternity,7.6
+Groundhog Day,8.0
+"I, Tonya",7.5
+Killing Zoe,6.4
+Leatherheads,6.0
+Magic Mike,6.1
+Meet Joe Black,7.2
+Mo' Better Blues,6.7
+National Lampoon's Vacation,7.3
+Out of Sight,7.0
+P.S. I Love You,7.0
+Pirates of the Caribbean,8.1
+Prime,6.2
+Professor Marston and the Wonder Women,None
+Proof of Life,6.3
+Red Planet,5.7
+Snow Dogs,5.2
+Solaris,6.2
+Sorry to Bother You,6.9
+That Thing You Do!,7.0
+The African Queen,7.7
+The Bodyguard,6.3
+The Constant Gardener,7.4
+The Dark Knight Rises,8.4
+The Incredible Hulk,6.6
+The Judge,7.4
+The Secret Life of Walter Mitty,7.3
+The Water Boy,None
+Top Gun: Maverick,8.3
+A Walk on the Moon,6.6
+Aquaman,6.8
+Austin Powers: The Spy Who Shagged Me,6.6
+Away We Go,7.0
+Barbershop,6.3
+Billy Madison,6.3
+Bruce Almighty,6.8
+Captain Blood,7.7
+Cast Away,7.8
+Cat on a Hot Tin Roof,7.9
+Click,6.4
+Clueless,6.9
+Con Air,6.9
+Contact,7.5
+"Crouching Tiger, Hidden Dragon",7.9
+Delicatessen,7.5
+Destination Wedding,6.0
+Die Hard,8.2
+Divergent,6.6
+Ex Machina,7.7
+Fifty Shades Darker,4.6
+Fifty Shades of Grey,4.2
+For Love of the Game,6.6
+Forget Paris,6.5
+Goldfinger,7.7
+Honey,5.3
+"I Love You, Man",7.0
+Il Bidone,None
+Iron Man,7.9
+Jerry Maguire,7.3
+John Wick,7.4
+Kate & Leopold,6.4
+Laws of Attraction,5.8
+Long Shot,6.8
+Lord of War,7.6
+Lucky You,5.9
+Maid in Manhattan,5.3
+Mamma Mia!,6.5
+"Me, Myself & Irene",6.6
+Mrs. Doubtfire,7.1
+Never Been Kissed,6.0
+Notting Hill,7.2
+Road House,6.7
+Serendipity,6.8
+Spider-Man,7.4
+The Book of Love,6.0
+The Hustler,8.0
+The Kids Are All Right,7.0
+The Promise,6.1
+The Sting,8.3
+There's Something About Mary,7.1
+What Women Want,6.4
+Your Place or Mine,5.7
+A Beautiful Mind,8.2
+A Walk to Remember,7.3
+American Sniper,7.3
+An Officer and a Gentleman,7.0
+Atonement,7.8
+Bridesmaids,6.8
+Chasing Liberty,6.1
+Chef,7.3
+Desperado,7.1
+Down to Earth,5.4
+Dr. No,7.2
+Empire,5.9
+Four Christmases,5.7
+Funny People,6.3
+Garden State,7.4
+Hitch,6.6
+In Good Company,6.5
+L'Avventura,7.8
+La Strada,8.0
+Legally Blonde,6.4
+Meet Bill,6.2
+On Her Majesty's Secret Service,6.7
+Prince of Persia: The Sands of Time,6.6
+Raising Arizona,7.3
+Savages,7.1
+Shutter Island,8.2
+Slumdog Millionaire,8.0
+Sound of Music,8.1
+Spider-Man: Homecoming,7.4
+Summer Catch,5.1
+The Age of Adaline,7.2
+The Curious Case of Benjamin Button,7.8
+The Godfather,9.2
+The Graduate,8.0
+The Holiday,6.9
+The Hollars,6.6
+The King's Speech,8.0
+The Replacements,6.6
+The Way We Were,7.0
+W.,6.3
+Zoolander,6.5
+13 Going on 30,6.3
+About Time,7.8
+Adrift,6.6
+Armageddon,6.7
+Blue Crush,5.7
+Captain America: Civil War,7.8
+Chips,6.0
+Cinderella Man,8.0
+Cold Mountain,7.2
+Days of Thunder,6.1
+Dear John,6.3
+Ed Wood,7.8
+Elizabethtown,6.3
+Evan Almighty,5.4
+Forgetting Sarah Marshall,7.1
+Head over Heels,5.4
+Here on Earth,5.2
+Jersey Girl,6.2
+King Kong,7.2
+Le Mans,6.7
+Les Miserables,5.5
+Monster,7.3
+Mr. Deeds,5.8
+Pearl Harbor,6.2
+Push,6.1
+Queen of the Damned,5.2
+Romeo + Juliet,6.8
+Sleepless in Seattle,6.8
+Tag,6.5
+The Amazing Spider-Man,6.9
+The Big Sick,7.5
+The Dictator,6.4
+The Notebook,7.8
+The Wood,7.0
+Top Gun,6.9
+What's Your Number?,6.0
+When a Man Loves a Woman,6.5
+Wonder Woman,7.4
+Zombieland,7.6
+300,7.4
+50/50,7.6
+A Walk in the Clouds,6.7
+All the Pretty Horses,5.8
+Along Came Polly,6.0
+Anchorman: The Legend of Ron Burgundy,7.1
+Batman Begins,8.2
+Broken Hill,6.2
+Brooklyn,7.5
+Chasing Amy,7.2
+Chicago,7.2
+Chinatown,8.2
+First Man,7.3
+Grosse Pointe Blank,7.3
+Happy Gilmore,7.0
+Hidden Figures,7.8
+In Time,6.7
+Juno,7.5
+Knocked Up,6.9
+La Dolce Vita,8.0
+Leap Year,6.4
+Meet the Parents,7.0
+Midsommar,7.1
+Moulin Rouge!,7.6
+Peter Rabbit,6.6
+Reservation Road,6.6
+Siberia,4.3
+Soul Food,7.0
+Source Code,7.5
+The Artist,7.9
+The Bourne Identity,7.8
+The Hudsucker Proxy,7.2
+The Italian Job,7.0
+The Princess Bride,8.0
+The Rock,7.4
+The Scarlet Letter,5.3
+The Spanish Prisoner,7.2
+This Means War,6.3
+Twilight,5.3
+Two Weeks Notice,6.1
+Walk the Line,7.8
+Wayne's World,6.2
+We Are Your Friends,6.2
+A Woman Under the Influence,8.1
+Becoming Jane,7.0
+Bottle Rocket,6.9
+Cinderella,6.9
+City of Angels,6.7
+Coyote Ugly,5.7
+Deadpool,8.0
+Fight Club,8.8
+Fools Rush In,6.1
+Gigli,2.6
+Hacksaw Ridge,8.1
+His Girl Friday,7.8
+I Know What You Did Last Summer,5.8
+Idle Hands,6.2
+Imagine Me & You,None
+Independence Day: Resurgence,5.2
+Inventing the Abbotts,6.4
+Invincible,7.0
+La ragazza con la valigia,None
+Liar Liar,6.9
+Look Who's Talking,5.9
+Me Before You,7.4
+Mickey Blue Eyes,5.9
+Mirror Mirror,5.6
+Neighbors,6.3
+On the Basis of Sex,7.1
+One Fine Day,6.5
+Pete's Dragon,6.7
+Ready Player One,7.4
+Risky Business,6.8
+Robin Hood: Prince of Thieves,6.9
+Selma,7.5
+She's All That,5.9
+The 40-Year Old Virgin,7.1
+The Best of me,6.7
+The Dark Knight,9.0
+The Disaster Artist,7.3
+The Fault in Our Stars,7.7
+The Five-Year Engagement,6.2
+The Lucky One,6.4
+The Matrix,8.7
+The Story of Us,5.9
+The Vow,6.8
+Us,6.8
+White Men Can't Jump,6.8
+X2: X-Men United,7.4
+10 Things I Hate About You,7.3
+A Most Violent Year,7.0
+A Simple Favor,6.8
+Ace Ventura: Pet Detective,6.9
+Aladdin,6.9
+And So It Goes,5.8
+Anger Management,6.2
+Annihilation,6.8
+Austin Powers: International Man of Mystery,7.0
+Ben-Hur,5.7
+Brokeback Mountain,7.7
+Casanova,6.5
+Dave,6.9
+Doctor Strange,7.5
+Easy A,7.0
+Enemy at the Gates,7.5
+Four Weddings and a Funeral,7.1
+Friends with Benefits,6.5
+Gangs of New York,7.5
+I Don't Know How She Does It,4.9
+Jeux d'enfants,5.1
+Jurassic World,6.9
+Last Holiday,6.5
+Le notti di Cabiria,None
+Little Nicky,5.3
+Love & Basketball,7.2
+Love & Other Drugs,6.7
+Love Story,6.9
+Office Space,7.6
+Pitch Perfect,7.1
+Robin Hood,5.3
+Safe Men,5.8
+Shakespeare in Love,7.1
+Something New,6.6
+Spider-Man: Far From Home,7.4
+The Butterfly Effect,7.6
+The English Patient,7.4
+The Hunger Games: Mockingjay Part 2,6.5
+The Last Time I Committed Suicide,5.5
+The Twilight Saga: New Moon,4.8
+The Young Victoria,7.2
+Thor,7.0
+Tristan + Isolde,6.8
+Unforgettable,5.1
+We Were Soldiers,7.1
+500 Days of Summer,7.7
+9 1/2 Weeks,3.5
+A Knight's Tale,6.9
+Angel Eyes,5.7
+Australia,6.6
+Baywatch,5.5
+Before Sunrise,8.1
+Beverly Hills Ninja,5.5
+Breakfast at Tiffany's,7.6
+Breathe,7.1
+Captain America: The First Avenger,6.9
+Chocolat,7.3
+Cocktail,5.9
+Dodgeball,6.7
+Fever Pitch,6.2
+Friday,7.2
+Get Out,7.8
+Guardians of the Galaxy,8.0
+Hardball,6.4
+Hustle & Flow,7.3
+Inception,8.8
+Jury Duty,4.2
+Lady Bird,7.4
+Marriage Story,7.9
+Miss Congeniality,6.3
+Monster Trucks,5.7
+My Big Fat Greek Wedding,6.6
+Punch-Drunk Love,7.3
+Requiem for a Dream,8.3
+Ride Along,6.1
+Rumble Fish,7.1
+Skyscraper,5.8
+Slackers,5.3
+Star Trek,7.9
+Stomp the Yard,5.4
+The Break-Up,5.8
+The Last of the Mohicans,7.7
+The Martian,8.0
+The Painted Veil,7.4
+The Sum of All Fears,6.4
+The Theory of Everything,7.7
+Titanic,7.9
+Transformers: Dark of the Moon,6.2
+Wild Mountain Thyme,5.7
+Wonder,7.9
+Yesterday,6.8
+You People,5.5
+Blue Valentine,7.3
+Catch Me If You Can,8.1
+Daddy's Little Girls,5.8
+Good Will Hunting,8.3
+Killing Me Softly,5.4
+Red Riding Hood,5.4
+She's Out of My League,6.4
+Speed,7.3
+The Hunger Games: Catching Fire,7.5
+The Lake House,6.8
+Tolkien,6.8
+Transformers,7.0
