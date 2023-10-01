@@ -1,2 +1,3 @@
 # omdb api key - don't want to expose this since usage is linked to personal account
 /secret_api_key.py
+/__pycache__/
