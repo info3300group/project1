@@ -20,13 +20,13 @@
           else {
             movie_data = {
               relationship_ages: [],
-              movie_year: data['Release Year'],
+              movie_year: Number(data['Release Year']),
             };
           }
           // add the relationship
           movie_data['relationship_ages'].push([
-            data['Actor 1 Age'],
-            data['Actor 2 Age'],
+            Number(data['Actor 1 Age']),
+            Number(data['Actor 2 Age']),
           ]);
           visualization_data[movie_name] = movie_data;
         });
@@ -45,7 +45,7 @@
           if (movie_rating == 'None') {
             delete visualization_data[movie_name];
           } else {
-            movie_data['movie_rating'] = movie_rating;
+            movie_data['movie_rating'] = parseFloat(movie_rating);
             visualization_data[movie_name] = movie_data;
           }
         });
