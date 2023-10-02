@@ -62,13 +62,11 @@
 
           // plot 2 (age gap vs rating)
           plotAgeVsRating(visualization_data);
-
         });
       });
 
       // WHERE FIRST PLOT STARTS
       function plotAvgAgeDiffVSYear(visualization_data) {
-
         const yearAverageAgeGapData = {};
 
         for (const movieName in visualization_data) {
@@ -155,23 +153,45 @@
       function plotAgeVsRating(visualization_data) {
         const div = d3.select("#plot2");
 
-      // turn data into an array (missing title) so it can work with d3 
-      const data_array = Object.values(visualization_data)
+        // turn data into an array (missing title) so it can work with d3
+        // each element formatted as such: {ageGap=n, ratings=[]}
+        // ageGap ^ is unique
+        let data_array = [];
 
-      const plotSize = { width: 500, height: 500 }
-      const plotMargins = { top: 10, right: 10, bottom: 30, left: 30 }
+        const plotSize = { width: 500, height: 500 };
+        const plotMargins = { top: 10, right: 10, bottom: 50, left: 50 };
+        const axisPadding = 5;
 
-      const minAge = Math.min(...data_array.map(d => d['relationship_ages']).flat(2))
-      const maxAge = Math.max(...data_array.map(d => d['relationship_ages']).flat(2))
-      const ageExtent = [minAge, maxAge]
-      const ratingExtent = d3.extent(data_array, d => d['movie_rating'])
+        // format data
+        for (const [title, data] of Object.entries(visualization_data)) {
+          const rating = data["movie_rating"];
 
-      const yScale = d3.scaleLinear()
-        .domain(ratingExtent)
-        .range([plotSize.height, 0])
-      const xScale = d3.scaleLinear()
-        .domain(ageExtent)
-        .range([0, plotSize.width])
+          for (const ageRange of data["relationship_ages"]) {
+            const ageGap = Math.abs(ageRange[0] - ageRange[1]);
+
+            if (data_array[ageGap]) data_array[ageGap].ratings.push(rating);
+            else data_array[ageGap] = { ageGap: ageGap, ratings: [rating] };
+          }
+        }
+
+        // remove all empty elements
+        data_array = data_array.filter((d) => d != null);
+
+        // add rating averages
+        data_array.forEach((d) => (d.avgRating = d3.mean(d.ratings)));
+
+        const ageExtent = d3.extent(data_array, (d) => d.ageGap);
+        const ratingExtent = d3.extent(data_array, (d) => d.avgRating);
+
+        const yScale = d3
+          .scaleLinear()
+          .domain(ratingExtent) // [0, ratingExtent[1]] to make y minimum = 0
+          .range([plotSize.height, 0]);
+
+        const xScale = d3
+          .scaleLinear()
+          .domain(ageExtent)
+          .range([0, plotSize.width]);
 
         const svg = div
           .append("svg")
@@ -180,53 +200,110 @@
             "height",
             plotSize.height + plotMargins.top + plotMargins.bottom
           );
+        // group for all plot elements (circles, lines, etc)
 
-      // group for all plot elements (circles, lines, etc)
-      const plotGroup = svg.append('g')
-        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top})`)
+        const plotGroup = svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left}, ${plotMargins.top})`
+          )
+          .style("fill", "black");
 
-      // y axis
-      svg.append('g')
-        .attr('transform', `translate(${plotMargins.left - 5}, ${plotMargins.top})`)
-        .call(d3.axisLeft(yScale))
+        // y axis
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left - axisPadding}, ${plotMargins.top})`
+          )
+          .call(d3.axisLeft(yScale));
 
-      // x axis
-      svg.append('g')
-        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top + plotSize.height + 5})`)
-        .call(d3.axisBottom(xScale))
+        // y axis grid
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left + plotSize.width},${plotMargins.top})`
+          )
+          .attr("opacity", 0.2)
+          .call(
+            d3
+              .axisLeft(yScale)
+              .tickSize(plotSize.width + axisPadding)
+              .tickFormat(() => {})
+          );
 
+        // x axis
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left}, ${
+              plotMargins.top + plotSize.height + axisPadding
+            })`
+          )
+          .call(d3.axisBottom(xScale));
+        // x axis grid
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left},${plotMargins.top})`
+          )
+          .attr("opacity", 0.2)
+          .call(
+            d3
+              .axisBottom(xScale)
+              .tickSize(plotSize.height + axisPadding)
+              .tickFormat(() => {})
+          );
 
-      data_array.forEach(data => {
-        const rating = data['movie_rating']
+        // draw line
+        const lineGen = d3
+          .line()
+          .x((d) => xScale(d.ageGap))
+          .y((d) => yScale(d.avgRating));
 
-        // line generator
-        const lineGen = d3.line()
-                    .x(d => xScale(d))
-                    .y(d => yScale(rating))
+        plotGroup
+          .append("path")
+          .datum(data_array)
+          .attr("d", lineGen)
+          .attr("stroke", "black")
+          .attr("stroke-width", 1);
+        //.attr('fill', 'none') // comment this to add fill
 
-        // some movies have multiple age ranges
-        for (const ageRange of data['relationship_ages']) {
+        // draw circles
+        plotGroup
+          .selectAll("circle")
+          .data(data_array)
+          .join("circle")
+          .attr("r", 3)
+          .attr("cx", (d) => xScale(d.ageGap))
+          .attr("cy", (d) => yScale(d.avgRating));
 
-          // draw each line
-          plotGroup.append('path')
-            .datum(ageRange)
-            .attr('d', lineGen)
-            .attr('stroke', 'black')
-            .attr('stroke-width', 1)
+        // x-axis label
+        svg
+          .append("text")
+          .attr("text-anchor", "middle")
+          .attr(
+            "transform",
+            `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
+            ${plotSize.height + plotMargins.bottom})`
+          )
+          .text("Age Gap");
 
-          // draw each circle
-          for (const age of ageRange) {
-            plotGroup.append('circle')
-              .attr('r', 5)
-              .attr('cx', xScale(age))
-              .attr('cy', yScale(rating))
-              .attr('opacity', 0.2)
-          }
-        }
-      })
-    }
-
-  </script>
-</body>
-
+        // y-axis label
+        svg
+          .append("text")
+          .attr("text-anchor", "middle")
+          .attr("transform", "rotate(-90)")
+          .attr(
+            "transform",
+            `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
+          )
+          .text("Movie Rating");
+      }
+    </script>
+  </body>
 </html>
