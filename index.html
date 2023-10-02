@@ -1,141 +1,251 @@
 <html>
+  <head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
 
-<head>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-</head>
+  <body>
+    <div id="plot1"></div>
 
-<body>
+    <div id="plot2"></div>
+    <script>
+      // where the formatted data will be stored
+      let visualization_data = {};
 
-  <div id='plot2'></div>
-  <script>
-    // where the formatted data will be stored
-    let visualization_data = {};
+      //  load movie data with aync request
+      d3.csv("movies.csv").then(function (moviesData) {
+        // the "ratings.csv" data was generated via OMDB API requests
+        // (see "fill_ratings_csv.py" for reference)
+        //  load rating data for each movie with aync request
+        d3.csv("ratings.csv").then(function (ratingsData) {
+          // first populate movies data
+          moviesData.forEach(function (data) {
+            movie_name = data["Movie Name"];
+            movie_data = [];
+            // if in data dict, just update the relationship_ages
+            if (movie_name in visualization_data) {
+              movie_data = visualization_data[movie_name];
+            }
+            // if not already in data dict, create the initial dictionary struct
+            else {
+              movie_data = {
+                relationship_ages: [],
+                movie_year: Number(data["Release Year"]),
+              };
+            }
+            // add the relationship
+            movie_data["relationship_ages"].push([
+              Number(data["Actor 1 Age"]),
+              Number(data["Actor 2 Age"]),
+            ]);
+            visualization_data[movie_name] = movie_data;
+          });
 
-    //  load movie data with aync request
-    d3.csv('movies.csv').then(function (moviesData) {
-
-      // the "ratings.csv" data was generated via OMDB API requests
-      // (see "fill_ratings_csv.py" for reference)
-      //  load rating data for each movie with aync request
-      d3.csv('ratings.csv').then(function (ratingsData) {
-
-        // first populate movies data
-        moviesData.forEach(function (data) {
-          movie_name = data['Movie Name'];
-          movie_data = [];
-          // if in data dict, just update the relationship_ages
-          if (movie_name in visualization_data) {
+          // next populate ratings data
+          ratingsData.forEach(function (data) {
+            movie_name = data["Movie Title"];
+            movie_rating = data["Imdb Rating"];
             movie_data = visualization_data[movie_name];
-          }
-          // if not already in data dict, create the initial dictionary struct
-          else {
-            movie_data = {
-              relationship_ages: [],
-              movie_year: Number(data['Release Year']),
+
+            // remove movie data without any ratings data
+            if (movie_rating == "None") {
+              delete visualization_data[movie_name];
+            } else {
+              movie_data["movie_rating"] = parseFloat(movie_rating);
+              visualization_data[movie_name] = movie_data;
+            }
+          });
+          // see data format in console
+          console.log(visualization_data);
+
+          // plot 1 (avg age diff for each year + range )
+          plotAvgAgeDiffVSYear(visualization_data);
+
+          // plot 2 (age gap vs rating)
+          plotAgeVsRating(visualization_data);
+
+        });
+      });
+
+      // WHERE FIRST PLOT STARTS
+      function plotAvgAgeDiffVSYear(visualization_data) {
+
+        const yearAverageAgeGapData = {};
+
+        for (const movieName in visualization_data) {
+          const movieData = visualization_data[movieName];
+          const movieYear = movieData.movie_year;
+
+          //total age gap for movie
+          const totalAgeGap = movieData.relationship_ages.reduce(
+            (acc, ages) => {
+              const [actor1Age, actor2Age] = ages;
+              return acc + Math.abs(actor1Age - actor2Age);
+            },
+            0
+          );
+
+          //totalAgeGap and movie count for each year
+          if (!(movieYear in yearAverageAgeGapData)) {
+            yearAverageAgeGapData[movieYear] = {
+              totalAgeGap: 0,
+              movieCount: 0,
             };
           }
-          // add the relationship
-          movie_data['relationship_ages'].push([
-            Number(data['Actor 1 Age']),
-            Number(data['Actor 2 Age']),
-          ]);
-          visualization_data[movie_name] = movie_data;
-        });
-
-        // next populate ratings data
-        ratingsData.forEach(function (data) {
-          movie_name = data['Movie Title'];
-          movie_rating = data['Imdb Rating'];
-          movie_data = visualization_data[movie_name];
-
-          // remove movie data without any ratings data
-          if (movie_rating == 'None') {
-            delete visualization_data[movie_name];
-          } else {
-            movie_data['movie_rating'] = parseFloat(movie_rating);
-            visualization_data[movie_name] = movie_data;
-          }
-        });
-        // see data format in console
-        console.log(visualization_data);
-
-        // plot 2 (age gap vs rating)
-        plotAgeVsRating(visualization_data);
-      })
-    });
-
-
-    function plotAgeVsRating(visualization_data) {
-      const div = d3.select('#plot2')
-
-      // turn data into an array (missing title) so it can work with d3 
-      const data_array = Object.values(visualization_data)
-
-      const plotSize = { width: 500, height: 500 }
-      const plotMargins = { top: 10, right: 10, bottom: 30, left: 30 }
-
-      const minAge = Math.min(...data_array.map(d => d['relationship_ages']).flat(2))
-      const maxAge = Math.max(...data_array.map(d => d['relationship_ages']).flat(2))
-      const ageExtent = [minAge, maxAge]
-      const ratingExtent = d3.extent(data_array, d => d['movie_rating'])
-
-      const yScale = d3.scaleLinear()
-        .domain(ratingExtent)
-        .range([plotSize.height, 0])
-      const xScale = d3.scaleLinear()
-        .domain(ageExtent)
-        .range([0, plotSize.width])
-
-      const svg = div.append('svg')
-        .attr('width', plotSize.width + plotMargins.left + plotMargins.right)
-        .attr('height', plotSize.height + plotMargins.top + plotMargins.bottom)
-
-      // group for all plot elements (circles, lines, etc)
-      const plotGroup = svg.append('g')
-        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top})`)
-
-      // y axis
-      svg.append('g')
-        .attr('transform', `translate(${plotMargins.left - 5}, ${plotMargins.top})`)
-        .call(d3.axisLeft(yScale))
-
-      // x axis
-      svg.append('g')
-        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top + plotSize.height + 5})`)
-        .call(d3.axisBottom(xScale))
-
-
-      data_array.forEach(data => {
-        const rating = data['movie_rating']
-
-        // line generator
-        const lineGen = d3.line()
-                    .x(d => xScale(d))
-                    .y(d => yScale(rating))
-
-        // some movies have multiple age ranges
-        for (const ageRange of data['relationship_ages']) {
-
-          // draw each line
-          plotGroup.append('path')
-            .datum(ageRange)
-            .attr('d', lineGen)
-            .attr('stroke', 'black')
-            .attr('stroke-width', 1)
-
-          // draw each circle
-          for (const age of ageRange) {
-            plotGroup.append('circle')
-              .attr('r', 5)
-              .attr('cx', xScale(age))
-              .attr('cy', yScale(rating))
-              .attr('opacity', 0.2)
-          }
+          yearAverageAgeGapData[movieYear].totalAgeGap += totalAgeGap;
+          yearAverageAgeGapData[movieYear].movieCount++;
         }
-      })
-    }
 
-  </script>
-</body>
+        //avg age gap for each year
+        const yearAverageAgeGapArray = [];
+        for (const year in yearAverageAgeGapData) {
+          const { totalAgeGap, movieCount } = yearAverageAgeGapData[year];
+          const averageAgeGap = totalAgeGap / movieCount;
+          yearAverageAgeGapArray.push({ year: +year, averageAgeGap });
+        }
 
+        //SVG container
+        const margin = { top: 20, right: 30, bottom: 30, left: 30 };
+        const width = 2000 - margin.left - margin.right; // Increased width because of all years
+        const height = 400 - margin.top - margin.bottom;
+
+        const svg = d3
+          .select("#plot1")
+          .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        //BAR GRAPH
+        const x = d3
+          .scaleBand()
+          .domain(yearAverageAgeGapArray.map((d) => d.year))
+          .range([0, width])
+          .padding(0.1); // Adjusted padding as well
+
+        const y = d3
+          .scaleLinear()
+          .domain([0, d3.max(yearAverageAgeGapArray, (d) => d.averageAgeGap)])
+          .nice()
+          .range([height, 0]);
+
+        svg
+          .append("g")
+          .selectAll(".bar")
+          .data(yearAverageAgeGapArray)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", (d) => x(d.year))
+          .attr("y", (d) => y(d.averageAgeGap))
+          .attr("width", x.bandwidth())
+          .attr("height", (d) => height - y(d.averageAgeGap))
+          .attr("fill", "darkblue"); //Changed color color
+
+        svg
+          .append("g")
+          .attr("class", "x-axis")
+          .attr("transform", `translate(0,${height})`)
+          .call(d3.axisBottom(x));
+
+        svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
+      }
+
+      // WHERE SECOND PLOT FUNCTION STARTS
+      function plotAgeVsRating(visualization_data) {
+        const div = d3.select("#plot2");
+
+        // turn data into an array (missing title) so it can work with d3
+        const data_array = Object.values(visualization_data);
+
+        const plotSize = { width: 500, height: 500 };
+        const plotMargins = { top: 10, right: 10, bottom: 30, left: 30 };
+
+        const minAge = Math.min(
+          ...data_array.map((d) => d["relationship_ages"]).flat(2)
+        );
+        const maxAge = Math.max(
+          ...data_array.map((d) => d["relationship_ages"]).flat(2)
+        );
+        const ageExtent = [minAge, maxAge];
+        const ratingExtent = d3.extent(data_array, (d) => d["movie_rating"]);
+
+        const yScale = d3
+          .scaleLinear()
+          .domain(ratingExtent)
+          .range([plotSize.height, 0]);
+        const xScale = d3
+          .scaleLinear()
+          .domain(ageExtent)
+          .range([0, plotSize.width]);
+
+        const svg = div
+          .append("svg")
+          .attr("width", plotSize.width + plotMargins.left + plotMargins.right)
+          .attr(
+            "height",
+            plotSize.height + plotMargins.top + plotMargins.bottom
+          );
+
+        // group for all plot elements (circles, lines, etc)
+        const plotGroup = svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left}, ${plotMargins.top})`
+          );
+
+        // y axis
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left - 5}, ${plotMargins.top})`
+          )
+          .call(d3.axisLeft(yScale));
+
+        // x axis
+        svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${plotMargins.left}, ${
+              plotMargins.top + plotSize.height + 5
+            })`
+          )
+          .call(d3.axisBottom(xScale));
+
+        data_array.forEach((data) => {
+          const rating = data["movie_rating"];
+
+          // line generator
+          const lineGen = d3
+            .line()
+            .x((d) => xScale(d))
+            .y((d) => yScale(rating));
+
+          // some movies have multiple age ranges
+          for (const ageRange of data["relationship_ages"]) {
+            // draw each line
+            plotGroup
+              .append("path")
+              .datum(ageRange)
+              .attr("d", lineGen)
+              .attr("stroke", "black")
+              .attr("stroke-width", 1);
+
+            // draw each circle
+            for (const age of ageRange) {
+              plotGroup
+                .append("circle")
+                .attr("r", 5)
+                .attr("cx", xScale(age))
+                .attr("cy", yScale(rating))
+                .attr("opacity", 0.2);
+            }
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
