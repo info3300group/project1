@@ -1,15 +1,26 @@
 <html>
-  <head>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-  </head>
-  <body>
-    <script>
-      // where the formatted data will be stored
-      let visualization_data = {};
 
-      //  load movie data with aync request
-      d3.csv('movies.csv').then(function (data) {
-        data.forEach(function (data) {
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+
+  <div id='plot2'></div>
+  <script>
+    // where the formatted data will be stored
+    let visualization_data = {};
+
+    //  load movie data with aync request
+    d3.csv('movies.csv').then(function (moviesData) {
+
+      // the "ratings.csv" data was generated via OMDB API requests
+      // (see "fill_ratings_csv.py" for reference)
+      //  load rating data for each movie with aync request
+      d3.csv('ratings.csv').then(function (ratingsData) {
+
+        // first populate movies data
+        moviesData.forEach(function (data) {
           movie_name = data['Movie Name'];
           movie_data = [];
           // if in data dict, just update the relationship_ages
@@ -30,13 +41,9 @@
           ]);
           visualization_data[movie_name] = movie_data;
         });
-      });
 
-      // the "ratings.csv" data was generated via OMDB API requests
-      // (see "fill_ratings_csv.py" for reference)
-      //  load rating data for each movie with aync request
-      d3.csv('ratings.csv').then(function (data) {
-        data.forEach(function (data) {
+        // next populate ratings data
+        ratingsData.forEach(function (data) {
           movie_name = data['Movie Title'];
           movie_rating = data['Imdb Rating'];
           movie_data = visualization_data[movie_name];
@@ -51,7 +58,24 @@
         });
         // see data format in console
         console.log(visualization_data);
-      });
-    </script>
-  </body>
+
+        // plot 2 (age gap vs rating)
+        plotAgeVsRating(visualization_data);
+      })
+    });
+
+    function plotAgeVsRating(visualization_data) {
+      const div = d3.select('#plot2')
+
+      const plotSize = { width: 500, height: 500 };
+
+      const svg = div.append('svg')
+        .attr('width', plotSize.width)
+        .attr('height', plotSize.height)
+
+    }
+
+  </script>
+</body>
+
 </html>
