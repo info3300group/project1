@@ -1,5 +1,10 @@
 <html>
   <head>
+    <style>
+      #plot1 svg {
+        padding: 20px;
+      }
+    </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
 
@@ -67,43 +72,61 @@
 
       // WHERE FIRST PLOT STARTS
       function plotAvgAgeDiffVSYear(visualization_data) {
-        const yearAverageAgeGapData = {};
+        const yearAgeDifferenceData = {};
 
         for (const movieName in visualization_data) {
           const movieData = visualization_data[movieName];
           const movieYear = movieData.movie_year;
+          const relationshipAges = movieData.relationship_ages;
 
-          //total age gap for movie
-          const totalAgeGap = movieData.relationship_ages.reduce(
-            (acc, ages) => {
-              const [actor1Age, actor2Age] = ages;
-              return acc + Math.abs(actor1Age - actor2Age);
-            },
-            0
-          );
+          let totalAgeDifference = 0;
+          for (const ages of relationshipAges) {
+            const [actor1Age, actor2Age] = ages;
+            const ageDiff = Math.abs(actor1Age - actor2Age);
+            totalAgeDifference += ageDiff;
+          }
 
-          //totalAgeGap and movie count for each year
-          if (!(movieYear in yearAverageAgeGapData)) {
-            yearAverageAgeGapData[movieYear] = {
-              totalAgeGap: 0,
+          // calculating avg age difference
+          const averageAgeDifference =
+            relationshipAges.length > 0
+              ? totalAgeDifference / relationshipAges.length
+              : 0;
+
+          // initialize for year
+          if (!(movieYear in yearAgeDifferenceData)) {
+            yearAgeDifferenceData[movieYear] = {
+              totalAgeDifference: 0,
               movieCount: 0,
             };
           }
-          yearAverageAgeGapData[movieYear].totalAgeGap += totalAgeGap;
-          yearAverageAgeGapData[movieYear].movieCount++;
+
+          // update total age difference and count of movies
+          yearAgeDifferenceData[movieYear].totalAgeDifference +=
+            averageAgeDifference;
+          yearAgeDifferenceData[movieYear].movieCount++;
         }
 
-        //avg age gap for each year
-        const yearAverageAgeGapArray = [];
-        for (const year in yearAverageAgeGapData) {
-          const { totalAgeGap, movieCount } = yearAverageAgeGapData[year];
-          const averageAgeGap = totalAgeGap / movieCount;
-          yearAverageAgeGapArray.push({ year: +year, averageAgeGap });
+        // avg
+        const yearAverageAgeDifferences = {};
+        for (const year in yearAgeDifferenceData) {
+          const { totalAgeDifference, movieCount } =
+            yearAgeDifferenceData[year];
+          const averageAgeDifference = totalAgeDifference / movieCount;
+          yearAverageAgeDifferences[year] = averageAgeDifference;
         }
+        console.log(yearAverageAgeDifferences);
+
+        // map to year
+        const yearAverageAgeDifferenceArray = Object.keys(
+          yearAverageAgeDifferences
+        ).map((year) => ({
+          year: +year,
+          averageAgeDifference: yearAverageAgeDifferences[year],
+        }));
 
         //SVG container
         const margin = { top: 20, right: 30, bottom: 30, left: 30 };
-        const width = 2000 - margin.left - margin.right; // Increased width because of all years
+        const width = 2000 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
         const svg = d3
@@ -114,31 +137,36 @@
           .append("g")
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        //BAR GRAPH
         const x = d3
           .scaleBand()
-          .domain(yearAverageAgeGapArray.map((d) => d.year))
+          .domain(yearAverageAgeDifferenceArray.map((d) => d.year))
           .range([0, width])
-          .padding(0.1); // Adjusted padding as well
+          .padding(0.1);
 
         const y = d3
           .scaleLinear()
-          .domain([0, d3.max(yearAverageAgeGapArray, (d) => d.averageAgeGap)])
+          .domain([
+            0,
+            d3.max(
+              yearAverageAgeDifferenceArray,
+              (d) => d.averageAgeDifference
+            ),
+          ])
           .nice()
           .range([height, 0]);
 
+        // creating bar graph
         svg
-          .append("g")
           .selectAll(".bar")
-          .data(yearAverageAgeGapArray)
+          .data(yearAverageAgeDifferenceArray)
           .enter()
           .append("rect")
           .attr("class", "bar")
           .attr("x", (d) => x(d.year))
-          .attr("y", (d) => y(d.averageAgeGap))
+          .attr("y", (d) => y(d.averageAgeDifference))
           .attr("width", x.bandwidth())
-          .attr("height", (d) => height - y(d.averageAgeGap))
-          .attr("fill", "darkblue"); //Changed color color
+          .attr("height", (d) => height - y(d.averageAgeDifference))
+          .attr("fill", "darkblue");
 
         svg
           .append("g")
@@ -147,6 +175,78 @@
           .call(d3.axisBottom(x));
 
         svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
+
+        //calling range function
+        ageRangevsYear(svg, visualization_data, x, y);
+      }
+
+      //creating range lines
+      function ageRangevsYear(svg, visualization_data, x, y) {
+        const div = d3.select("#plot1");
+
+        const yearAgeRange = {};
+
+        for (const movieName in visualization_data) {
+          const movieData = visualization_data[movieName];
+          const movieYear = movieData.movie_year;
+          const relationshipAges = movieData.relationship_ages;
+
+          if (!(movieYear in yearAgeRange)) {
+            yearAgeRange[movieYear] = {
+              minAgeDiff: Infinity,
+              maxAgeDiff: -Infinity,
+            };
+          }
+
+          relationshipAges.forEach(([actor1Age, actor2Age]) => {
+            const ageDiff = Math.abs(actor1Age - actor2Age);
+            if (ageDiff < yearAgeRange[movieYear].minAgeDiff) {
+              yearAgeRange[movieYear].minAgeDiff = ageDiff;
+            }
+            if (ageDiff > yearAgeRange[movieYear].maxAgeDiff) {
+              yearAgeRange[movieYear].maxAgeDiff = ageDiff;
+            }
+          });
+          
+
+        }
+
+        console.log(yearAgeRange);
+
+        for (const year in yearAgeRange) {
+          const { minAgeDiff, maxAgeDiff } = yearAgeRange[year];
+
+        
+
+          //x position for center of bar
+          const xPos = x(+year) + x.bandwidth() / 2;
+
+          const maxAgeDiffY = y(maxAgeDiff);
+          const minAgeDiffY = y(minAgeDiff);
+
+          svg
+            .append("circle")
+            .attr("cx", xPos)
+            .attr("cy", maxAgeDiffY)
+            .attr("r", 5)
+            .style("fill", "darkgreen");
+
+          svg
+            .append("circle")
+            .attr("cx", xPos)
+            .attr("cy", minAgeDiffY)
+            .attr("r", 5)
+            .style("fill", "darkgreen");
+
+          svg
+            .append("line")
+            .attr("x1", xPos)
+            .attr("y1", maxAgeDiffY)
+            .attr("x2", xPos)
+            .attr("y2", minAgeDiffY)
+            .style("stroke", "green")
+            .style("stroke-width", 2);
+        }
       }
 
       // WHERE SECOND PLOT FUNCTION STARTS
@@ -159,7 +259,7 @@
         let data_array = [];
 
         const plotSize = { width: 500, height: 500 };
-        const plotMargins = { top: 10, right: 10, bottom: 50, left: 50 };
+        const plotMargins = { top: 10, right: 10, bottom: 80, left: 50 };
         const axisPadding = 5;
 
         // format data
