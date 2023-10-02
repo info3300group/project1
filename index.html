@@ -64,15 +64,75 @@
       })
     });
 
+
     function plotAgeVsRating(visualization_data) {
       const div = d3.select('#plot2')
 
-      const plotSize = { width: 500, height: 500 };
+      // turn data into an array (missing title) so it can work with d3 
+      const data_array = Object.values(visualization_data)
+
+      const plotSize = { width: 500, height: 500 }
+      const plotMargins = { top: 10, right: 10, bottom: 30, left: 30 }
+
+      const minAge = Math.min(...data_array.map(d => d['relationship_ages']).flat(2))
+      const maxAge = Math.max(...data_array.map(d => d['relationship_ages']).flat(2))
+      const ageExtent = [minAge, maxAge]
+      const ratingExtent = d3.extent(data_array, d => d['movie_rating'])
+
+      const yScale = d3.scaleLinear()
+        .domain(ratingExtent)
+        .range([plotSize.height, 0])
+      const xScale = d3.scaleLinear()
+        .domain(ageExtent)
+        .range([0, plotSize.width])
 
       const svg = div.append('svg')
-        .attr('width', plotSize.width)
-        .attr('height', plotSize.height)
+        .attr('width', plotSize.width + plotMargins.left + plotMargins.right)
+        .attr('height', plotSize.height + plotMargins.top + plotMargins.bottom)
 
+      // group for all plot elements (circles, lines, etc)
+      const plotGroup = svg.append('g')
+        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top})`)
+
+      // y axis
+      svg.append('g')
+        .attr('transform', `translate(${plotMargins.left - 5}, ${plotMargins.top})`)
+        .call(d3.axisLeft(yScale))
+
+      // x axis
+      svg.append('g')
+        .attr('transform', `translate(${plotMargins.left}, ${plotMargins.top + plotSize.height + 5})`)
+        .call(d3.axisBottom(xScale))
+
+
+      data_array.forEach(data => {
+        const rating = data['movie_rating']
+
+        // line generator
+        const lineGen = d3.line()
+                    .x(d => xScale(d))
+                    .y(d => yScale(rating))
+
+        // some movies have multiple age ranges
+        for (const ageRange of data['relationship_ages']) {
+
+          // draw each line
+          plotGroup.append('path')
+            .datum(ageRange)
+            .attr('d', lineGen)
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1)
+
+          // draw each circle
+          for (const age of ageRange) {
+            plotGroup.append('circle')
+              .attr('r', 5)
+              .attr('cx', xScale(age))
+              .attr('cy', yScale(rating))
+              .attr('opacity', 0.2)
+          }
+        }
+      })
     }
 
   </script>
