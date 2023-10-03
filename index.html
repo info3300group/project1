@@ -266,7 +266,7 @@
         // ageGap ^ is unique
         let data_array = [];
 
-        const plotSize = { width: 500, height: 500 };
+        const plotSize = { width: 600, height: 600 };
         const plotMargins = { top: 10, right: 10, bottom: 80, left: 50 };
         const axisPadding = 5;
 
@@ -378,8 +378,8 @@
           .datum(data_array)
           .attr("d", lineGen)
           .attr("stroke", "black")
-          .attr("stroke-width", 1);
-        //.attr('fill', 'none') // comment this to add fill
+          .attr("stroke-width", 1)
+          .attr('fill', 'none'); // comment this to add fill
 
         // draw circles
         plotGroup
@@ -397,7 +397,7 @@
           .attr(
             "transform",
             `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
-            ${plotSize.height + plotMargins.bottom})`
+            ${plotSize.height + plotMargins.top + axisPadding*8})`
           )
           .text("Age Gap");
 
