@@ -1,10 +1,5 @@
 <html>
   <head>
-    <style>
-      #plot1 svg {
-        padding: 20px;
-      }
-    </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
 
@@ -125,7 +120,7 @@
         }));
 
         //SVG container
-        const margin = { top: 20, right: 30, bottom: 30, left: 30 };
+        const margin = { top: 20, right: 30, bottom: 50, left: 50 };
         const width = 2000 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
@@ -171,6 +166,23 @@
           .attr("class", "x-axis")
           .attr("transform", `translate(0,${height})`)
           .call(d3.axisBottom(x));
+
+        svg
+          .append("text")
+          .attr("class", "x-axis-label")
+          .attr("x", width / 2) // Center the label horizontally
+          .attr("y", height + margin.bottom - 10) // Position it below the x-axis
+          .style("text-anchor", "middle") // Center-align the text
+          .text("Movie Year Release"); // Set the label text
+
+        svg
+          .append("text")
+          .attr("class", "y-axis-label")
+          .attr("transform", "rotate(-90)") // Rotate the text to be vertical
+          .attr("x", -height / 2) // Center the label vertically
+          .attr("y", -margin.left + 15) // Position it to the left of the y-axis
+          .style("text-anchor", "middle") // Center-align the text
+          .text("Age Gap"); // Set the label text
 
         svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
 
