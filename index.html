@@ -136,6 +136,10 @@
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
           .attr("transform", `translate(${margin.left},${margin.top})`);
+        const maxYValue = d3.max(
+          yearAverageAgeDifferenceArray,
+          (d) => d.averageAgeDifference
+        );
 
         const x = d3
           .scaleBand()
@@ -145,13 +149,7 @@
 
         const y = d3
           .scaleLinear()
-          .domain([
-            0,
-            d3.max(
-              yearAverageAgeDifferenceArray,
-              (d) => d.averageAgeDifference
-            ),
-          ])
+          .domain([0, maxYValue + 20]) // add padding so all age ranges are in view
           .nice()
           .range([height, 0]);
 
@@ -207,16 +205,12 @@
               yearAgeRange[movieYear].maxAgeDiff = ageDiff;
             }
           });
-          
-
         }
 
         console.log(yearAgeRange);
 
         for (const year in yearAgeRange) {
           const { minAgeDiff, maxAgeDiff } = yearAgeRange[year];
-
-        
 
           //x position for center of bar
           const xPos = x(+year) + x.bandwidth() / 2;
