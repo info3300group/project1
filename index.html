@@ -167,26 +167,28 @@
           .attr("transform", `translate(0,${height})`)
           .call(d3.axisBottom(x));
 
+          
+        //axis labelling
         svg
           .append("text")
           .attr("class", "x-axis-label")
-          .attr("x", width / 2) // Center the label horizontally
-          .attr("y", height + margin.bottom - 10) // Position it below the x-axis
-          .style("text-anchor", "middle") // Center-align the text
-          .text("Movie Year Release"); // Set the label text
+          .attr("x", width / 2) 
+          .attr("y", height + margin.bottom - 10) 
+          .style("text-anchor", "middle") 
+          .text("Movie Year Release"); 
 
         svg
           .append("text")
           .attr("class", "y-axis-label")
-          .attr("transform", "rotate(-90)") // Rotate the text to be vertical
-          .attr("x", -height / 2) // Center the label vertically
-          .attr("y", -margin.left + 15) // Position it to the left of the y-axis
-          .style("text-anchor", "middle") // Center-align the text
-          .text("Age Gap"); // Set the label text
+          .attr("transform", "rotate(-90)")
+          .attr("x", -height / 2) 
+          .attr("y", -margin.left + 15)
+          .style("text-anchor", "middle")
+          .text("Age Gap");
 
         svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
 
-        //calling range function
+        //calling age gap range function to create lines
         ageRangevsYear(svg, visualization_data, x, y);
       }
 
