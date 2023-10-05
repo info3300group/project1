@@ -267,7 +267,7 @@
         let data_array = [];
 
         const plotSize = { width: 600, height: 600 };
-        const plotMargins = { top: 10, right: 10, bottom: 80, left: 50 };
+        const plotMargins = { top: 35, right: 10, bottom: 80, left: 50 };
         const axisPadding = 5;
 
         // format data
@@ -390,6 +390,19 @@
           .attr("cx", (d) => xScale(d.ageGap))
           .attr("cy", (d) => yScale(d.avgRating));
 
+        // title label
+        svg
+          .append("text")
+          .attr("text-anchor", "middle")
+          .attr(
+            "transform",
+            `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
+            ${axisPadding*4})`
+          )
+          .text("Relationship Age Gaps in Hollywood Movies")
+          .style("font-size", "25px");
+
+
         // x-axis label
         svg
           .append("text")
@@ -410,7 +423,7 @@
             "transform",
             `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
           )
-          .text("Movie Rating");
+          .text("Average Movie Rating");
       }
     </script>
   </body>
