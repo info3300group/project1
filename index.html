@@ -301,6 +301,14 @@
           .domain(ageExtent)
           .range([0, plotSize.width]);
 
+        const cScale = d3.scaleSequential()
+          .domain(ratingExtent)
+          .range([d3.rgb(255, 0, 0), d3.rgb(0, 255, 0)])
+
+        const sScale = d3.scaleLinear()
+          .domain(d3.extent(data_array, (d) => d.ratings.length))
+          .range([4, 8])
+
         const svg = div
           .append("svg")
           .attr("width", plotSize.width + plotMargins.left + plotMargins.right)
@@ -334,7 +342,7 @@
             "transform",
             `translate(${plotMargins.left + plotSize.width},${plotMargins.top})`
           )
-          .attr("opacity", 0.2)
+          .attr("opacity", 0.15)
           .call(
             d3
               .axisLeft(yScale)
@@ -359,13 +367,31 @@
             "transform",
             `translate(${plotMargins.left},${plotMargins.top})`
           )
-          .attr("opacity", 0.2)
+          .attr("opacity", 0.15)
           .call(
             d3
               .axisBottom(xScale)
               .tickSize(plotSize.height + axisPadding)
               .tickFormat(() => {})
           );
+
+
+        const defs = plotGroup.append("defs");
+
+        const gradient = defs.append("linearGradient")
+            .attr("id", "data-gradient")
+            .attr("gradientUnits", "userSpaceOnUse") 
+            .attr("y1", yScale(ratingExtent[0]))
+            .attr("y2", yScale(ratingExtent[1]))
+            .attr("x1", xScale(ratingExtent[0]))
+            .attr("x2", xScale(ratingExtent[1]))
+
+        
+        Array(2).fill().forEach((_, i) => 
+          gradient.append("stop")
+              .attr("offset", (i * 100) + "%")
+              .attr("stop-color", cScale(ratingExtent[i]))
+        );
 
         // draw line
         const lineGen = d3
@@ -377,8 +403,8 @@
           .append("path")
           .datum(data_array)
           .attr("d", lineGen)
-          .attr("stroke", "black")
-          .attr("stroke-width", 1)
+          .attr("stroke", "url(#data-gradient)")
+          .attr("stroke-width", 2)
           .attr('fill', 'none'); // comment this to add fill
 
         // draw circles
@@ -386,9 +412,10 @@
           .selectAll("circle")
           .data(data_array)
           .join("circle")
-          .attr("r", 3)
+          .attr("r", (d) => sScale(d.ratings.length))
           .attr("cx", (d) => xScale(d.ageGap))
-          .attr("cy", (d) => yScale(d.avgRating));
+          .attr("cy", (d) => yScale(d.avgRating))
+          .attr('fill', (d) => cScale(d.avgRating));
 
         // title label
         svg
