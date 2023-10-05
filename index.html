@@ -387,10 +387,10 @@
             .attr("x2", xScale(ratingExtent[1]))
 
         
-        Array(2).fill().forEach((_, i) => 
+        Array(3).fill().forEach((_, i) => 
           gradient.append("stop")
-              .attr("offset", (i * 100) + "%")
-              .attr("stop-color", cScale(ratingExtent[i]))
+              .attr("offset", (i * 50) + "%")
+              .attr("stop-color", i === 1 ? 'gray' : cScale(ratingExtent[i/2]))
         );
 
         // draw line
