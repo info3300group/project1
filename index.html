@@ -193,7 +193,7 @@
 
         const y = d3
           .scaleLinear()
-          .domain([0, maxYValue + 20]) // add padding so all age ranges are in view
+          .domain([0, maxYValue + 25]) // add padding so all age ranges are in view
           .nice()
           .range([height, 0]);
 
@@ -224,7 +224,6 @@
               })
           );
 
-
         //axis labelling
         svg
           .append("text")
@@ -236,7 +235,6 @@
           .style("font-family", "sans-serif")
           .style("font-weight", "bold")
           .text("Movie Year Release");
-
 
         svg
           .append("text")
@@ -255,6 +253,14 @@
           .attr("class", "y-axis")
           .call(d3.axisLeft(y))
           .style("stroke", textColor);
+
+        // horizontal dashed lined
+        svg
+          .append("g")
+          .attr("class", "grid-lines")
+          .call(d3.axisLeft(y).tickSize(-width).tickFormat(""))
+          .style("stroke-dasharray", "2,2") // dashed lined 
+          .style("stroke", "lightgray"); // grid line color
 
         // calling age gap range function to create lines
         ageRangevsYear(svg, visualization_data, x, y);
