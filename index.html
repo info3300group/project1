@@ -7,7 +7,8 @@
       }
       h1 {
         color: brown;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
       }
     </style>
   </head>
@@ -15,13 +16,15 @@
   <body>
     <h1>Relationship Age Gaps in Hollywood Movies over the Years</h1>
     <div id="plot1"></div>
-    <h1>Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps</h1>
+    <h1>
+      Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps
+    </h1>
     <div id="plot2"></div>
     <script>
       let textColor = "brown";
       let lightColor = "lightcoral";
       let darkColor = "maroon";
-      
+
       let lightestColor = "gold";
       let darkestColor = d3.rgb(201, 22, 64);
       // where the formatted data will be stored
@@ -135,7 +138,26 @@
           averageAgeDifference: yearAverageAgeDifferences[year],
         }));
 
-        //SVG container
+        //ticks for all years
+        const allYears = Array.from({ length: 89 }, (_, i) => 1935 + i);
+
+        //years w/ data
+        const yearsWithData = Object.keys(yearAgeDifferenceData).map(Number);
+
+        const yearsWithoutData = allYears.filter(
+          (year) => !yearsWithData.includes(year)
+        ); //years w/o data
+
+        //year label for every 5th tick mark 
+        const xTickLabels = allYears.map((year, index) => {
+          if (index % 5 === 0) {
+            return year.toString();
+          } else {
+            return "";
+          }
+        });
+
+        // SVG container
         const margin = { top: 20, right: 30, bottom: 50, left: 50 };
         const width = 2000 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
@@ -154,7 +176,7 @@
 
         const x = d3
           .scaleBand()
-          .domain(yearAverageAgeDifferenceArray.map((d) => d.year))
+          .domain(allYears.map(String)) // Use allYears as the domain, converted to strings
           .range([0, width])
           .padding(0.1);
 
@@ -164,8 +186,6 @@
           .nice()
           .range([height, 0]);
 
-        
-
         // creating bar graph
         svg
           .selectAll(".bar")
@@ -173,7 +193,7 @@
           .enter()
           .append("rect")
           .attr("class", "bar")
-          .attr("x", (d) => x(d.year))
+          .attr("x", (d) => x(String(d.year)))
           .attr("y", (d) => y(d.averageAgeDifference))
           .attr("width", x.bandwidth())
           .attr("height", (d) => height - y(d.averageAgeDifference))
@@ -184,25 +204,20 @@
           .attr("class", "x-axis")
           .style("stroke", textColor)
           .attr("transform", `translate(0,${height})`)
-          .call(d3.axisBottom(x));
-
-          
-        //axis labelling
-        svg
-          .append("text")
-          .attr("class", "x-axis-label")
-          .attr("x", width / 2) 
-          .attr("y", height + margin.bottom - 10) 
-          .style("text-anchor", "middle") 
-          .style("fill", textColor)
-          .text("Movie Year Release"); 
-        
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(allYears.map(String))
+              .tickFormat((d, i) => {
+                return xTickLabels[i];
+              })
+          );
 
         svg
           .append("text")
           .attr("class", "y-axis-label")
           .attr("transform", "rotate(-90)")
-          .attr("x", -height / 2) 
+          .attr("x", -height / 2)
           .attr("y", -margin.left + 15)
           .style("text-anchor", "middle")
           .style("fill", textColor)
@@ -213,16 +228,13 @@
           .attr("class", "y-axis")
           .call(d3.axisLeft(y))
           .style("stroke", textColor);
-        
 
-        //calling age gap range function to create lines
+        // calling age gap range function to create lines
         ageRangevsYear(svg, visualization_data, x, y);
       }
 
-      //creating range lines
+      // creating range lines
       function ageRangevsYear(svg, visualization_data, x, y) {
-        const div = d3.select("#plot1");
-
         const yearAgeRange = {};
 
         for (const movieName in visualization_data) {
@@ -253,12 +265,13 @@
         for (const year in yearAgeRange) {
           const { minAgeDiff, maxAgeDiff } = yearAgeRange[year];
 
-          //x position for center of bar
-          const xPos = x(+year) + x.bandwidth() / 2;
+          // x position for center of bar
+          const xPos = x(String(year)) + x.bandwidth() / 2;
 
           const maxAgeDiffY = y(maxAgeDiff);
           const minAgeDiffY = y(minAgeDiff);
           const rangeColor = darkColor;
+
           svg
             .append("circle")
             .attr("cx", xPos)
@@ -328,13 +341,15 @@
           .domain(ageExtent)
           .range([0, plotSize.width]);
 
-        const cScale = d3.scaleSequential()
+        const cScale = d3
+          .scaleSequential()
           .domain(ratingExtent)
-          .range([darkestColor, lightestColor])
+          .range([darkestColor, lightestColor]);
 
-        const sScale = d3.scaleLinear()
+        const sScale = d3
+          .scaleLinear()
           .domain(d3.extent(data_array, (d) => d.ratings.length))
-          .range([4, 8])
+          .range([4, 8]);
 
         const svg = div
           .append("svg")
@@ -405,23 +420,28 @@
               .tickFormat(() => {})
           );
 
-
         const defs = plotGroup.append("defs");
 
-        const gradient = defs.append("linearGradient")
-            .attr("id", "data-gradient")
-            .attr("gradientUnits", "userSpaceOnUse") 
-            .attr("y1", yScale(ratingExtent[0]))
-            .attr("y2", yScale(ratingExtent[1]))
-            .attr("x1", xScale(ratingExtent[0]))
-            .attr("x2", xScale(ratingExtent[1]))
+        const gradient = defs
+          .append("linearGradient")
+          .attr("id", "data-gradient")
+          .attr("gradientUnits", "userSpaceOnUse")
+          .attr("y1", yScale(ratingExtent[0]))
+          .attr("y2", yScale(ratingExtent[1]))
+          .attr("x1", xScale(ratingExtent[0]))
+          .attr("x2", xScale(ratingExtent[1]));
 
-        
-        Array(3).fill().forEach((_, i) => 
-          gradient.append("stop")
-            .attr("offset", (i * 50) + "%")
-            .attr("stop-color", i === 1 ? lightColor : cScale(ratingExtent[i/2]))
-        );
+        Array(3)
+          .fill()
+          .forEach((_, i) =>
+            gradient
+              .append("stop")
+              .attr("offset", i * 50 + "%")
+              .attr(
+                "stop-color",
+                i === 1 ? lightColor : cScale(ratingExtent[i / 2])
+              )
+          );
 
         // draw line
         const lineGen = d3
@@ -435,7 +455,7 @@
           .attr("d", lineGen)
           .attr("stroke", "url(#data-gradient)")
           .attr("stroke-width", 2)
-          .attr('fill', 'none'); // comment this to add fill
+          .attr("fill", "none"); // comment this to add fill
 
         // draw circles
         plotGroup
@@ -445,11 +465,7 @@
           .attr("r", (d) => sScale(d.ratings.length))
           .attr("cx", (d) => xScale(d.ageGap))
           .attr("cy", (d) => yScale(d.avgRating))
-          .attr('fill', (d) => cScale(d.avgRating));
-
-        
-
-
+          .attr("fill", (d) => cScale(d.avgRating));
 
         // x-axis label
         svg
@@ -458,7 +474,7 @@
           .attr(
             "transform",
             `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
-            ${plotSize.height + plotMargins.top + axisPadding*8})`
+            ${plotSize.height + plotMargins.top + axisPadding * 8})`
           )
           .text("Age Gap")
           .style("fill", textColor);
