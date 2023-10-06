@@ -359,7 +359,7 @@
         data_array = data_array.filter((d) => d != null);
 
         // add rating averages
-        data_array.forEach((d) => (d.avgRating = d3.mean(d.ratings)));
+        data_array.forEach((d) => (d.avgRating = d3.median(d.ratings)));
 
         const ageExtent = d3.extent(data_array, (d) => d.ageGap);
         const ratingExtent = d3.extent(data_array, (d) => d.avgRating);
@@ -523,7 +523,7 @@
             "transform",
             `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
           )
-          .text("Average Movie Rating")
+          .text("Median Movie Rating")
           .style("font-family", "sans-serif")
           .style("font-weight", "bold")
           .style("fill", textColor);
