@@ -2,21 +2,28 @@
   <head>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-      body {background-color: rgb(255, 253, 238);
+      body {
+        background-color: rgb(255, 253, 238);
+      }
+      h1 {
+        color: brown;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       }
     </style>
   </head>
 
   <body>
+    <h1>Relationship Age Gaps in Hollywood Movies over the Years</h1>
     <div id="plot1"></div>
-
+    <h1>Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps</h1>
     <div id="plot2"></div>
     <script>
       let textColor = "brown";
       let lightColor = "lightcoral";
       let darkColor = "maroon";
-      let darkestColor = d3.rgb(181, 2, 2);
-      let lightestColor = d3.rgb(250, 187, 187);
+      
+      let lightestColor = "gold";
+      let darkestColor = d3.rgb(201, 22, 64);
       // where the formatted data will be stored
       let visualization_data = {};
 
@@ -157,6 +164,8 @@
           .nice()
           .range([height, 0]);
 
+        
+
         // creating bar graph
         svg
           .selectAll(".bar")
@@ -173,6 +182,7 @@
         svg
           .append("g")
           .attr("class", "x-axis")
+          .style("stroke", textColor)
           .attr("transform", `translate(0,${height})`)
           .call(d3.axisBottom(x));
 
@@ -198,7 +208,12 @@
           .style("fill", textColor)
           .text("Average Age Gap");
 
-        svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
+        svg
+          .append("g")
+          .attr("class", "y-axis")
+          .call(d3.axisLeft(y))
+          .style("stroke", textColor);
+        
 
         //calling age gap range function to create lines
         ageRangevsYear(svg, visualization_data, x, y);
@@ -279,8 +294,8 @@
         let data_array = [];
 
         const plotSize = { width: 600, height: 600 };
-        const plotMargins = { top: 35, right: 10, bottom: 80, left: 50 };
-        const axisPadding = 5;
+        const plotMargins = { top: 45, right: 10, bottom: 80, left: 60 };
+        const axisPadding = 8;
 
         // format data
         for (const [title, data] of Object.entries(visualization_data)) {
@@ -345,6 +360,7 @@
             "transform",
             `translate(${plotMargins.left - axisPadding}, ${plotMargins.top})`
           )
+          .style("stroke", textColor)
           .call(d3.axisLeft(yScale));
 
         // y axis grid
@@ -371,6 +387,7 @@
               plotMargins.top + plotSize.height + axisPadding
             })`
           )
+          .style("stroke", textColor)
           .call(d3.axisBottom(xScale));
         // x axis grid
         svg
@@ -380,6 +397,7 @@
             `translate(${plotMargins.left},${plotMargins.top})`
           )
           .attr("opacity", 0.15)
+
           .call(
             d3
               .axisBottom(xScale)
@@ -399,10 +417,10 @@
             .attr("x2", xScale(ratingExtent[1]))
 
         
-        Array(2).fill().forEach((_, i) => 
+        Array(3).fill().forEach((_, i) => 
           gradient.append("stop")
-              .attr("offset", (i * 100) + "%")
-              .attr("stop-color", cScale(ratingExtent[i]))
+            .attr("offset", (i * 50) + "%")
+            .attr("stop-color", i === 1 ? lightColor : cScale(ratingExtent[i/2]))
         );
 
         // draw line
@@ -429,18 +447,7 @@
           .attr("cy", (d) => yScale(d.avgRating))
           .attr('fill', (d) => cScale(d.avgRating));
 
-        // title label
-        svg
-          .append("text")
-          .attr("text-anchor", "middle")
-          .attr(
-            "transform",
-            `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
-            ${axisPadding*4})`
-          )
-          .text("Relationship Age Gaps in Hollywood Movies")
-          .style("font-size", "25px")
-          .style("fill", textColor);
+        
 
 
 
