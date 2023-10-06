@@ -195,6 +195,8 @@
           .attr("y", height + margin.bottom - 10) 
           .style("text-anchor", "middle") 
           .style("fill", textColor)
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .text("Movie Year Release"); 
         
 
@@ -206,6 +208,8 @@
           .attr("y", -margin.left + 15)
           .style("text-anchor", "middle")
           .style("fill", textColor)
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .text("Average Age Gap");
 
         svg
@@ -461,6 +465,8 @@
             ${plotSize.height + plotMargins.top + axisPadding*8})`
           )
           .text("Age Gap")
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .style("fill", textColor);
 
         // y-axis label
@@ -473,6 +479,8 @@
             `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
           )
           .text("Average Movie Rating")
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .style("fill", textColor);
       }
     </script>
