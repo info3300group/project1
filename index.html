@@ -4,21 +4,28 @@
     <style>
       body {
         background-color: rgb(253, 250, 228);
+        margin: 30px;
       }
-      h1 {
+      h1, h2, h3 {
         color: brown;
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
+      }
+      h2 {
+        margin-top: 50px;
+      }
+      h2 {
+        margin-top: 50px;
       }
     </style>
   </head>
 
   <body>
-    <h1>Relationship Age Gaps in Hollywood Movies over the Years</h1>
+    <h1>Info 3300 Project 1: Relationship Age Gaps in Hollywood Movies</h1>
+    <h3>By Adeniyi Fagbewesa, Elise Song, Ka-Hyun Nam, and Morgan Suh</h3>
+    <h2>Relationship Age Gaps in Hollywood Movies over the Years</h2>
     <div id="plot1"></div>
-    <h1>
-      Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps
-    </h1>
+    <h2>Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps</h2>
     <div id="plot2"></div>
     <script>
       let textColor = "brown";
@@ -212,6 +219,21 @@
                 return xTickLabels[i];
               })
           );
+          .call(d3.axisBottom(x));
+
+          
+        //axis labelling
+        svg
+          .append("text")
+          .attr("class", "x-axis-label")
+          .attr("x", width / 2) 
+          .attr("y", height + margin.bottom - 10) 
+          .style("text-anchor", "middle") 
+          .style("fill", textColor)
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
+          .text("Movie Year Release"); 
+        
 
         svg
           .append("text")
@@ -221,6 +243,8 @@
           .attr("y", -margin.left + 15)
           .style("text-anchor", "middle")
           .style("fill", textColor)
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .text("Average Age Gap");
 
         svg
@@ -477,6 +501,8 @@
             ${plotSize.height + plotMargins.top + axisPadding * 8})`
           )
           .text("Age Gap")
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .style("fill", textColor);
 
         // y-axis label
@@ -489,6 +515,8 @@
             `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
           )
           .text("Average Movie Rating")
+          .style("font-family", "sans-serif")
+          .style("font-weight", "bold")
           .style("fill", textColor);
       }
     </script>
