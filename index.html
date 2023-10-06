@@ -340,7 +340,7 @@
         let data_array = [];
 
         const plotSize = { width: 600, height: 600 };
-        const plotMargins = { top: 10, right: 10, bottom: 80, left: 60 };
+        const plotMargins = { top: 10, right: 250, bottom: 80, left: 60 };
         const axisPadding = 8;
 
         // format data
@@ -363,6 +363,7 @@
 
         const ageExtent = d3.extent(data_array, (d) => d.ageGap);
         const ratingExtent = d3.extent(data_array, (d) => d.avgRating);
+        const sizeExtent = d3.extent(data_array, (d) => d.ratings.length);
 
         const yScale = d3
           .scaleLinear()
@@ -381,7 +382,7 @@
 
         const sScale = d3
           .scaleLinear()
-          .domain(d3.extent(data_array, (d) => d.ratings.length))
+          .domain(sizeExtent)
           .range([4, 8]);
 
         const svg = div
@@ -527,6 +528,37 @@
           .style("font-family", "sans-serif")
           .style("font-weight", "bold")
           .style("fill", textColor);
+
+
+        const legendGroup = svg.append("g")
+          .attr("transform", `translate(${plotSize.width + plotMargins.left*2}, 
+            ${plotSize.height*3/4})`)
+
+        
+        const legendText = ['> 56 titles','[28 - 56] titles','< 28 titles']
+
+        const legendValues = Array(legendText.length).fill().map((_,i,arr) => 
+          sizeExtent[1] - ((i/(arr.length-1)) * (sizeExtent[1] - sizeExtent[0])))
+
+        legendGroup.selectAll("circle")
+            .data(legendValues)
+            .join('circle')
+            .attr('cy', (_,i) => i * 30)
+            .attr('cx', 0)
+            .attr('r', sScale)
+            .attr('fill','rgb(228, 119, 32)')
+
+        legendGroup.selectAll("text")
+            .data(legendValues)
+            .join('text')
+            .attr('y', (_,i) => i * 30 + 5)
+            .attr('x', 20)
+            .attr('r', sScale)
+            .text((_,i) => legendText[i])
+            .style("font-family", "sans-serif")
+            .style("font-weight", "bold")
+            .style("fill", textColor)
+
       }
     </script>
   </body>
