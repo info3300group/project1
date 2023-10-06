@@ -1,6 +1,10 @@
 <html>
   <head>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      body {background-color: rgb(255, 253, 238);
+      }
+    </style>
   </head>
 
   <body>
@@ -8,6 +12,11 @@
 
     <div id="plot2"></div>
     <script>
+      let textColor = "brown";
+      let lightColor = "lightcoral";
+      let darkColor = "maroon";
+      let darkestColor = d3.rgb(181, 2, 2);
+      let lightestColor = d3.rgb(250, 187, 187);
       // where the formatted data will be stored
       let visualization_data = {};
 
@@ -159,7 +168,7 @@
           .attr("y", (d) => y(d.averageAgeDifference))
           .attr("width", x.bandwidth())
           .attr("height", (d) => height - y(d.averageAgeDifference))
-          .attr("fill", "darkblue");
+          .attr("fill", lightColor);
 
         svg
           .append("g")
@@ -175,7 +184,9 @@
           .attr("x", width / 2) 
           .attr("y", height + margin.bottom - 10) 
           .style("text-anchor", "middle") 
+          .style("fill", textColor)
           .text("Movie Year Release"); 
+        
 
         svg
           .append("text")
@@ -184,7 +195,8 @@
           .attr("x", -height / 2) 
           .attr("y", -margin.left + 15)
           .style("text-anchor", "middle")
-          .text("Age Gap");
+          .style("fill", textColor)
+          .text("Average Age Gap");
 
         svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
 
@@ -231,20 +243,20 @@
 
           const maxAgeDiffY = y(maxAgeDiff);
           const minAgeDiffY = y(minAgeDiff);
-
+          const rangeColor = darkColor;
           svg
             .append("circle")
             .attr("cx", xPos)
             .attr("cy", maxAgeDiffY)
             .attr("r", 5)
-            .style("fill", "darkgreen");
+            .style("fill", rangeColor);
 
           svg
             .append("circle")
             .attr("cx", xPos)
             .attr("cy", minAgeDiffY)
             .attr("r", 5)
-            .style("fill", "darkgreen");
+            .style("fill", rangeColor);
 
           svg
             .append("line")
@@ -252,7 +264,7 @@
             .attr("y1", maxAgeDiffY)
             .attr("x2", xPos)
             .attr("y2", minAgeDiffY)
-            .style("stroke", "green")
+            .style("stroke", rangeColor)
             .style("stroke-width", 2);
         }
       }
@@ -303,7 +315,7 @@
 
         const cScale = d3.scaleSequential()
           .domain(ratingExtent)
-          .range([d3.rgb(255, 0, 0), d3.rgb(0, 255, 0)])
+          .range([darkestColor, lightestColor])
 
         const sScale = d3.scaleLinear()
           .domain(d3.extent(data_array, (d) => d.ratings.length))
@@ -427,7 +439,9 @@
             ${axisPadding*4})`
           )
           .text("Relationship Age Gaps in Hollywood Movies")
-          .style("font-size", "25px");
+          .style("font-size", "25px")
+          .style("fill", textColor);
+
 
 
         // x-axis label
@@ -439,7 +453,8 @@
             `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
             ${plotSize.height + plotMargins.top + axisPadding*8})`
           )
-          .text("Age Gap");
+          .text("Age Gap")
+          .style("fill", textColor);
 
         // y-axis label
         svg
@@ -450,7 +465,8 @@
             "transform",
             `translate(${axisPadding * 2}, ${plotSize.height / 2}) rotate(-90)`
           )
-          .text("Average Movie Rating");
+          .text("Average Movie Rating")
+          .style("fill", textColor);
       }
     </script>
   </body>
