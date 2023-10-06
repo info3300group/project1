@@ -6,7 +6,9 @@
         background-color: rgb(253, 250, 228);
         margin: 30px;
       }
-      h1, h2, h3 {
+      h1,
+      h2,
+      h3 {
         color: brown;
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
@@ -25,7 +27,9 @@
     <h3>By Adeniyi Fagbewesa, Elise Song, Ka-Hyun Nam, and Morgan Suh</h3>
     <h2>Relationship Age Gaps in Hollywood Movies over the Years</h2>
     <div id="plot1"></div>
-    <h2>Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps</h2>
+    <h2>
+      Volatility of Hollywood Movie Ratings subject to Relationship Age Gaps
+    </h2>
     <div id="plot2"></div>
     <script>
       let textColor = "brown";
@@ -155,7 +159,7 @@
           (year) => !yearsWithData.includes(year)
         ); //years w/o data
 
-        //year label for every 5th tick mark 
+        //year label for every 5th tick mark
         const xTickLabels = allYears.map((year, index) => {
           if (index % 5 === 0) {
             return year.toString();
@@ -219,21 +223,20 @@
                 return xTickLabels[i];
               })
           );
-          .call(d3.axisBottom(x));
 
-          
+
         //axis labelling
         svg
           .append("text")
           .attr("class", "x-axis-label")
-          .attr("x", width / 2) 
-          .attr("y", height + margin.bottom - 10) 
-          .style("text-anchor", "middle") 
+          .attr("x", width / 2)
+          .attr("y", height + margin.bottom - 10)
+          .style("text-anchor", "middle")
           .style("fill", textColor)
           .style("font-family", "sans-serif")
           .style("font-weight", "bold")
-          .text("Movie Year Release"); 
-        
+          .text("Movie Year Release");
+
 
         svg
           .append("text")
@@ -497,7 +500,7 @@
           .attr("text-anchor", "middle")
           .attr(
             "transform",
-            `translate(${plotSize.width / 2 + plotMargins.left - axisPadding}, 
+            `translate(${plotSize.width / 2 + plotMargins.left - axisPadding},
             ${plotSize.height + plotMargins.top + axisPadding * 8})`
           )
           .text("Age Gap")
